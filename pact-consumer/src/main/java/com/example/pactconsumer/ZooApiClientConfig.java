@@ -3,6 +3,7 @@ package com.example.pactconsumer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.client.RestTemplate;
 
 @Configuration
@@ -17,4 +18,5 @@ public class ZooApiClientConfig {
     public ZooApiClient zooApiClient() {
         return new ZooApiClient(baseUrl, new RestTemplate());
     }
+
 }

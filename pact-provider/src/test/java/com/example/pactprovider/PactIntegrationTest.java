@@ -3,6 +3,7 @@ package com.example.pactprovider;
 import au.com.dius.pact.provider.junit.PactRunner;
 import au.com.dius.pact.provider.junit.Provider;
 import au.com.dius.pact.provider.junit.State;
+import au.com.dius.pact.provider.junit.loader.PactBroker;
 import au.com.dius.pact.provider.junit.loader.PactFolder;
 import au.com.dius.pact.provider.junit.target.HttpTarget;
 import au.com.dius.pact.provider.junit.target.Target;
@@ -16,6 +17,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 @RunWith(PactRunner.class)
 @Provider("zoo")
 @PactFolder("../pact-consumer/pacts")
+//@PactBroker(host = "localhost", port = "80")
 public class PactIntegrationTest {
     private static final int PORT = 8123;
 

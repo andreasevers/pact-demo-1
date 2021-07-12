@@ -31,46 +31,34 @@ public class ZooApiClientTest {
         client = new ZooApiClient(baseUrl(), new RestTemplate());
     }
 
+	@Test
+	@PactVerification(fragment = "listAnimals_3animals_fragment")
+	public void listAnimals_returnsAnimals() {
+		List<Animal> expectedAnimals = Arrays.asList(
+				new Animal("cat"),
+				new Animal("dolphin"),
+				new Animal("sloth")
+		);
+
+		assertThat(client.listAnimals()).isEqualTo(expectedAnimals);
+	}
+
     @Pact(consumer=CONSUMER)
     public RequestResponsePact listAnimals_3animals_fragment(PactDslWithProvider builder) {
         return builder
                 .given("3 animals")
-                .uponReceiving("GET /animals")
+                .uponReceiving("A request to get all animals")
                 .path("/animals")
                 .method("GET")
                 .willRespondWith()
                 .status(200)
-                .body(animalsJson, MediaType.APPLICATION_JSON_UTF8_VALUE)
+                .body(animalsJson, MediaType.APPLICATION_JSON_VALUE)
                 .toPact();
-    }
-
-    @Test
-    @PactVerification(fragment = "listAnimals_3animals_fragment")
-    public void listAnimals_returnsAnimals() {
-        List<Animal> expectedAnimals = Arrays.asList(
-                new Animal("cat"),
-                new Animal("dolphin"),
-                new Animal("sloth")
-        );
-
-        assertThat(client.listAnimals()).isEqualTo(expectedAnimals);
     }
 
     private String baseUrl() {
         return String.format("http://localhost:%s", mockProvider.getPort());
     }
 
-    private static String animalsJson = "{\n" +
-            "  \"animals\": [\n" +
-            "    {\n" +
-            "      \"name\": \"cat\"\n" +
-            "    },\n" +
-            "    {\n" +
-            "      \"name\": \"dolphin\"\n" +
-            "    },\n" +
-            "    {\n" +
-            "      \"name\": \"sloth\"\n" +
-            "    }\n" +
-            "  ]\n" +
-            "}";
+    private static String animalsJson = "{\"animals\": [{\"name\": \"cat\" },{\"name\": \"dolphin\"},{\"name\": \"sloth\"}]}";
 }
