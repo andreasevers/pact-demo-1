@@ -36,10 +36,15 @@ integration tests?
 How to demo this repository
 ---------------------------
 
+Prep work:
 1. Run the Pact Broker locally through `docker compose up -d` in the [Broker repo](https://github.com/pact-foundation/pact-broker-docker) and delete any existing pacts.
 1. Remove any pacts inside the `pacts` folder in the consumer.
+
+Presentation:
+1. Go through some slides explaining the pains of working without consumer-driver contract tests.
 1. Run mvn spring-boot:run for both projects and watch the console log of the consumer.
 1. In the provider, change the `name` property in `AnimalResponse` to `type`, and watch the consumer log.
+1. Go through some more slides explaining consumer-driven contract testing conceptually.
 1. Explore the tests in the consumer.
 1. Run the `listAnimals_returnsAnimals` test and verify the creation of the new pact file.
 1. Explore the tests in the provider.
@@ -54,12 +59,15 @@ How to demo this repository
 1. Change the `@PactFolder("../pact-consumer/pacts")` annotation to `@PactBroker(host = "localhost", port = "80")`
 1. Run the `Test and publish results` provider maven goal to report the verification results to the Pact Broker.
     _This goal is actually just the `mvn test -Dpact.verifier.publishResults=true -f pom.xml` command._
-1. **[Not working]** Run the `pact:can-i-deploy` maven goal to verify if we can deploy the provider.
+1. Run the `pact:can-i-deploy` maven goal to verify if we can deploy the provider.
 1. Run the `pact:can-i-deploy` maven goal to verify if we can deploy the consumer.
-1. Let's start using tags.
+1. Explore the `ci-script.sh` files in both applications and understand the versioning.
+1. Run the consumer `ci-script.sh` file and look at the matrix in the Pact Broker.
+1. Run the provider `ci-script.sh` file and look at the matrix in the Pact Broker.
+1. Rerun the consumer `ci-script.sh` file now that the provider is deployed to the test environment.
+1. Explain the idea of versions and tagging.
+1. Go through some more slides.
 
-
+More to discover:
 1. Feature branches (https://github.com/pact-foundation/pact-jvm/tree/master/provider/maven#publishing-pact-files-to-a-pact-broker)
-
-
 1. Pending / WIP pacts (https://docs.pact.io/pact_broker/advanced_topics/pending_pacts/ https://docs.pact.io/implementation_guides/jvm/provider/junit/#pending-pact-support-version-413-and-later)

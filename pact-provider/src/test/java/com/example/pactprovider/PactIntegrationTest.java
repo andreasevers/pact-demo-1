@@ -17,7 +17,6 @@ import org.springframework.context.ConfigurableApplicationContext;
 @RunWith(PactRunner.class)
 @Provider("zoo")
 @PactFolder("../pact-consumer/pacts")
-//@PactBroker(host = "localhost", port = "80")
 public class PactIntegrationTest {
     private static final int PORT = 8123;
 
